@@ -1,0 +1,15 @@
+{{#each}}
+  {{#if received }}
+    <div>{{ sent_date }}</div>
+    <div class='alert alert-success'>
+      {{ body }}
+    </div>
+  {{ else }}
+    <div>{{ sent_date }}</div>
+    <div class='alert alert-info'>
+      {{ body }}
+    </div>
+  {{/if}}
+{{else}}
+  <h1>No Messages Yet!</h1>
+{{/each}}

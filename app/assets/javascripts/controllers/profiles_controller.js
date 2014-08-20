@@ -1,0 +1,1 @@
+App.ProfilesController = Ember.ArrayController.extend({});

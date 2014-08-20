@@ -1,0 +1,59 @@
+<div class='col-sm-4'>
+  <div class="row">
+    <div class="col-xs-3">
+      {{#if prevProfile}}
+        <h5>{{prevProfile.name}}</h5>
+        <img {{bind-attr src='prevProfile.profile_photo'}} class='img-thumbnail' style='width: 60px;' />
+      {{/if}}
+    </div>
+    <div class="col-xs-5">
+      <h5 class="text-center">{{name}}</h5>
+      {{#if prevProfile}}
+        {{#link-to 'profile' prevProfile.id}}
+          <span class="glyphicon glyphicon-arrow-left prev-profile"></span>
+        {{/link-to}}
+      {{/if}}
+      <img {{bind-attr src='profile_photo'}} class='img-thumbnail main-photo' style='width: 70px;' />
+      {{#if nextProfile}}
+        {{#link-to 'profile' nextProfile.id }}
+          <span class="glyphicon glyphicon-arrow-right next-profile"></span>
+        {{/link-to}}
+      {{/if}}
+    </div>
+    <div class="col-xs-3">
+      {{#if nextProfile}}
+        <h5>{{nextProfile.name}}</h5>
+        <img {{bind-attr src='nextProfile.profile_photo'}} class='img-thumbnail' style='width: 60px;' />
+      {{/if}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-3"></div>
+    <div class="col-xs-5">
+      <div class="text-center">
+        {{star-rating starRating=rating maxStars=5 action="rateProfile"}}
+      </div>
+    </div>
+    <div class="col-xs-3"></div>
+  </div>
+  <div class="row">
+    <form role="form">
+      <div class="form-group">
+        <label class="control-label" for="messageSubject">Subject</label>
+        <i class="msg-floppy glyphicon glyphicon-floppy-disk pull-right" {{ action 'selectFolderForSub' }}></i>
+        <button type="button" class="close pull-right clear-text" aria-hidden="true" {{ action 'resetSubject' }}>&times;</button>
+        <i class="add-smile fa fa-smile-o pull-right" {{ action 'addSmiley' }}></i>
+        {{input type="text" value=defaultSubject class="form-control message-subject" }}
+      </div>
+      <div class="form-group">
+        <label class="control-label" for="messageBody">Message</label>
+        <i class="msg-floppy glyphicon glyphicon-floppy-disk pull-right" {{ action 'selectFolderForMessage' }}></i>
+        <button type="button" class="close pull-right clear-text" aria-hidden="true" {{ action 'resetMessage' }}>&times;</button>
+        <i class="add-smile fa fa-smile-o pull-right" {{ action 'addSmiley' }}></i>
+        {{textarea value=defaultMessage class="form-control message-body" }}
+      </div>
+      <button class="btn btn-info" {{ action 'selectSenderOption' }}>Send From</button>   
+      <button class="btn btn-success" {{ action 'sendMessage' }}>Send</button>      
+    </form>
+  </div>
+</div>

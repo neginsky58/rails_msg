@@ -1,0 +1,23 @@
+ {{#each itemController="folder" }}
+  {{#if isAdminFalse}}
+    <form role="form">
+      <div class="form-group">
+      <label for="hexamailStatus">{{name}} </label>
+      {{#if subject }}
+        {{#each msg in canned_messages itemController="canned_message"}}
+          {{#if msg.default  }}
+            {{view Ember.TextArea value=msg.subject class='form-control' disabled='true' }}
+          {{/if}}      
+        {{/each}}
+       {{else}}           
+          {{#each msg in canned_messages itemController="canned_message"}}
+            {{#if msg.default  }}
+              {{view Ember.TextArea value=msg.message class='form-control' disabled='true' }}
+            {{/if}}      
+          {{/each}}
+       {{/if}}
+        <hr>
+      </div>
+    </form>
+  {{/if}}  
+{{/each}}

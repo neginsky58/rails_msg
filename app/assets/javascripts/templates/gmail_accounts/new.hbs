@@ -1,0 +1,20 @@
+<div class="modal-body connect-account">
+  <form role="form">
+    <div class="form-group ">
+      <label for="newEmail" class="control-label">Email</label>
+      {{view Ember.TextField type="email" valueBinding='email' class="form-control" id="new-gmail-email"}}
+    </div>
+    <div class="form-group">
+      <label for="newPassword" class="control-label">Password</label>
+      {{view Ember.TextField type="password" valueBinding='password' class="form-control" id="new-gmail-password"}}
+    </div>
+    <div class="form-group">
+      <label for="confirmPassword" class="control-label">Confirm Password</label>
+      {{view Ember.TextField type="password" valueBinding='confirm_password' class="form-control" id="new-gmail-cpassword" }}
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default close-new-folder" {{action 'cancel' this }}>Close</button>
+  <button type="submit" class='btn btn-info pull-right connect-btn' {{action 'create' this }}>Connect Account</button>
+</div>

@@ -1,0 +1,70 @@
+<div class="panel-group" id="accordion" style="overflow: auto; height:450px;">
+  <!-- Button trigger modal -->
+  {{#each itemController="folder" }}
+    <div class="panel panel-default canned-panel">
+      <div class="panel-heading canned-folders">
+        <p class="panel-title canned-folder-titles">
+          <button type="button" class="close pull-left delete-canned-msg-folder" aria-hidden="true" {{action 'deleteCannedMessageFolder' }}>&times;-</button>
+          <a data-toggle="collapse" data-parent="#accordion" {{bind-attr href=collapse_href class=name }} {{action 'open' this}}>
+            {{#if opened}}
+              <span class="glyphicon glyphicon-folder-open" data-toggle="collapse" data-parent="#accordion" {{bind-attr href=collapse_href class=name }} ></span>
+              {{#if have_plus}}  
+                <span class="glyphicon glyphicon-plus" style ="color: #000000; font-size: 12px;" ></span>
+              {{/if}}    
+              {{name}}
+            {{else}}
+                <span class="glyphicon glyphicon-folder-close" data-toggle="collapse" data-parent="#accordion" {{bind-attr href=collapse_href class=name }} ></span>
+              {{#if have_plus}}  
+                <span class="glyphicon glyphicon-plus" style ="color: #000000; font-size: 12px;" ></span>
+              {{/if}}  
+                {{name}}
+            {{/if}}
+          </a>
+        </p>
+      </div>
+      {{#if subject }}
+        <div {{bind-attr id=collapse_id}} class="panel-collapse collapse">
+          <table class='table table-bordered table-hover canned-table'>
+            {{#each msg in canned_messages itemController="canned_message"}}
+              {{#if showCannedMsg}}
+                <tr>
+                  <td>
+                    <button type="button" class="close pull-left delete-canned" aria-hidden="true" {{action 'deleteCannedMessage' }}>&times;</button>
+                    {{#if msg.default  }}
+                      <button type="button" class="default-msg-btn close pull-left default-canned-btn" aria-hidden="true"  {{action 'setDefaultSubjectToCanned' msg on="click"}}>D</button>
+                    {{else}}
+                      <button type="button" class="close pull-left default-canned-btn" aria-hidden="true" {{action 'setDefaultSubjectToCanned' msg on="click"}}>D</button>
+                    {{/if}}
+                    <span class='msg-canned-message'>
+                      <a {{action 'setSubjectToCanned' msg on="click"}}>{{ msg.subject }}</a>
+                    </span>
+                </tr>
+              {{/if}}
+            {{/each}}
+          </table>
+        </div>
+      {{ else }}
+        <div {{bind-attr id=collapse_id}} class="panel-collapse collapse">
+          <table class='table table-bordered table-hover canned-table'>
+            {{#each msg in canned_messages itemController="canned_message"}}
+              {{#if showCannedMsg}}
+                <tr>
+                  <td>
+                    <button type="button" class="close pull-left delete-canned" aria-hidden="true" {{action 'deleteCannedMessage' }}>&times;</button>
+                    {{#if msg.default  }}
+                      <button type="button" class="default-msg-btn close pull-left default-canned-btn" aria-hidden="true"  {{action 'setDefaultMessageToCanned' msg on="click"}}>D</button>
+                    {{else}}
+                      <button type="button" class="close pull-left default-canned-btn" aria-hidden="true" {{action 'setDefaultMessageToCanned' msg on="click"}}>D</button>
+                    {{/if}}
+                     <span class='msg-canned-message'>
+                      <a {{action 'setMessageToCanned' msg on="click"}}>{{ msg.message }}</a>
+                    </span>
+                </tr>
+              {{/if}}
+            {{/each}}
+          </table>
+        </div>
+      {{/if}}
+    </div>
+  {{/each}}
+</div>

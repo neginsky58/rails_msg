@@ -1,0 +1,25 @@
+<div class='row'>
+  {{#link-to 'profile' this.id}}
+    Back
+  {{/link-to}}
+</div>
+
+<div class='col-md-1'>
+  {{#if prevProfile}}
+    {{#link-to 'photos' prevProfile.id }}
+      <span class="glyphicon glyphicon-arrow-left prev-photo-nav"></span>
+    {{/link-to}}
+  {{/if}}
+</div>
+<div class='col-md-10 center-block'>
+  {{#each photo in this.photos }}
+    <img {{bind-attr src='photo.url'}} class='img-thumbnail photo-detail' />
+  {{/each}}
+</div>
+<div class='col-md-1'>
+  {{#if nextProfile}}
+    {{#link-to 'photos' nextProfile.id }}
+      <span class="glyphicon glyphicon-arrow-right next-photo-nav"></span>
+    {{/link-to}}
+  {{/if}}
+</div>

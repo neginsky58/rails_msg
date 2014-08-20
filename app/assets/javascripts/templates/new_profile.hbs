@@ -1,0 +1,46 @@
+<div class="col-xs-12 center-block">
+  <form role="form">
+    <h4>New Profile</h4>
+    <hr>
+    <div class="form-group">
+      <label for="email">Email</label>
+      {{view Ember.TextField type="email" valueBinding='email' class="form-control"}} 
+    </div>
+
+    <div class="form-group">
+      <label for="name">Name</label>
+      {{view Ember.TextField type="text" valueBinding='name' class="form-control"}}
+    </div>
+    
+    <div class="form-group">
+      <label for="city">City</label>
+      {{view Ember.TextField type="text" valueBinding='city' class="form-control"}}
+    </div>
+    <div class="form-group">
+      <label for="seeking_number">Seeking Number</label>
+      {{view Ember.TextField type="text" valueBinding='seeking_number' class="form-control"}}
+    </div>
+    <div class="form-group">
+      <label for="rating">Rating</label>
+      {{star-rating starRating=rating maxStars=5 action="rateProfile"}}
+    </div>
+    <br>
+    <h4>Other Info</h4>
+    <hr>
+    <div class="form-group">
+      <label for="information">Information</label>
+      {{view Ember.TextArea type="text" valueBinding='info_data' class="form-control"}}
+    </div>
+    <br>
+    <h4>Previous Messages</h4>
+    <hr>
+    <div class="form-group">
+      <label for="information">Messages</label>
+      {{view Ember.TextArea type="text" valueBinding='message_data' class="form-control"}}
+    </div>
+  </form>
+  <button type="button" class="btn btn-lg btn-default" {{action 'cancel' this }}>Cancel</button>
+  <button type="submit" class="btn btn-lg btn-info" {{action 'create' this}}>Create</button>
+  <br>
+  <br>
+</div>

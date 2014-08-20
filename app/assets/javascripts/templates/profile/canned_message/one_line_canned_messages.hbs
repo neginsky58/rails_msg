@@ -1,0 +1,47 @@
+<div class='col-sm-8'>
+  <div class="panel-group" id="accordion">
+    <ul class="nav nav-pills profile-right-tabs">
+      <li><a {{action 'showOneLine' on='click'}}>One Line</a></li>
+      <li><a {{action 'showFullMsg' on='click'}}>Full Messages</a></li>
+      <li><a {{action 'hideCannedMsg' on='click'}}>Back</a></li>
+    </ul>
+    {{#each}}
+    <div class="panel panel-default canned-panel">
+      <div class="panel-heading canned-folders">
+        <p class="panel-title canned-folder-titles">
+          <a data-toggle="collapse" data-parent="#accordion" {{bind-attr href=collapse_href_one}}>
+            <span class="glyphicon glyphicon-folder-open"></span>{{name}}
+          </a>
+        </p>
+      </div>
+      <div {{bind-attr id=collapse_id_one}} class="panel-collapse collapse">
+        <table class='table table-bordered table-hover canned-table'>
+          {{#each msg in canned_messages itemController="canned_message"}}
+            {{#if showCannedMsg}}
+              <tr>
+                <td class='canned-message'>
+                  <button type="button" class="close pull-left delete-canned" aria-hidden="true" {{action 'deleteCannedMessage'}}>&times;</button>
+                  <button type="button" class="close pull-left default-canned-btn"  {{action 'setDefaultMessageToCanned' msg on="click"}}>D</button>
+                  <div class='line-msg-canned-message'>
+                    <a {{action 'setMessageToCanned' msg on="click"}}>{{ msg.message }}</a>
+                  </div>
+                </td>
+                <td class="canned-actions">
+                  {{#link-to 'canned_message' msg}}
+                    <button type="button" class="btn btn-xs btn-info edit-canned">
+                      <span class="glyphicon glyphicon-edit"></span>
+                    </button>
+                  {{/link-to}}
+                  
+                </td>
+              </tr>
+            {{/if}}
+          {{/each}}
+        </table>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+
+</div>
+

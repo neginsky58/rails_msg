@@ -1,0 +1,9 @@
+<form role="form">
+  <div class="form-group">
+    <label for="hexamailStatus">{{msg.hexamail_title}}</label>
+    {{view Ember.TextField valueBinding='msg.subject' class='form-control' disabled='true'}}
+    <br>
+    {{view Ember.TextArea valueBinding='msg.message' class='form-control' disabled='true' }}
+    <hr>
+  </div>
+ </form>

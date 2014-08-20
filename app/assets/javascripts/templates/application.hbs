@@ -1,0 +1,102 @@
+<nav class="navbar navbar-inverse messenger-nav" role="navigation">
+  <div class="col-xs-4 main-label">
+   {{#if controllers.currentUser.admin }}
+     <h4>Tags</h4>
+    {{/if}}
+  </div>
+  <div class="col-xs-4 main-label">
+    <h4>Conversations</h4>
+  </div>
+  <div class="col-xs-4">
+    <span class="pull-right">{{controllers.currentUser.email}}</span>
+    <br>
+    <a href="#" class="dropdown-toggle messenger-settings pull-right" data-toggle="dropdown">Settings <b class="caret"></b></a>
+    <ul class="dropdown-menu pull-right">
+      <li>{{#link-to 'gmail_accounts'}}Add Gmail{{/link-to}}</li>
+      <li><a href="#">Add Facebook</a></li>
+      <li class="divider"></li>
+      <li><a {{action 'logout' on="click"}}>Logout</a></li>
+    </ul>
+  </div>
+</nav>
+<div class=''>
+  <div class="col-xs-4 main-label" >
+  {{#if controllers.currentUser.admin }}
+    <ol class="breadcrumb messenger-subnav">
+      <li><a href='#'>1st</a></li>
+      <li><a href='#'>2nd</a></li>
+    </ol>
+    {{/if}}
+  </div>
+  <div class="col-xs-4 main-label">
+    {{#if controllers.currentUser.admin }}
+      <ol class="breadcrumb messenger-subnav">
+        <li>{{#link-to 'from_sa'}}From SA{{/link-to}}</li>
+        <li>{{#link-to 'new_profile'}}
+              <span class="glyphicon glyphicon-plus" style ="color: #000000; font-size: 12px;" ></span>
+            {{/link-to}}
+        </li>
+        <li>{{#link-to ''}}
+              <span {{ action 'newDrafts' }}>Drafts</span> 
+            {{/link-to}}
+        </li> 
+        <li>{{#link-to 'conve_sent'}}C. Sent{{/link-to}}</li>
+        <li>{{#link-to 'conve_pending'}}C. Pending{{/link-to}}</li>
+      </ol>
+    {{ else }}
+      <ol class="breadcrumb messenger-subnav">
+        <li>{{#link-to 'new_profile'}}
+          <span class="glyphicon glyphicon-plus" style ="color: #000000; font-size: 12px;" ></span>
+          {{/link-to}}
+        </li>
+        <li>{{#link-to '#'}}
+              <span {{ action 'newDrafts' }}>Drafts</span> 
+            {{/link-to}}
+        </li> 
+        <li>{{#link-to 'conve_sent'}}C. Sent{{/link-to}}</li>
+        <li>{{#link-to 'conve_pending'}}C. Pending{{/link-to}}</li>
+      </ol>
+    {{/if}}
+  </div>
+  <div class="col-xs-4"></div>
+</div>
+<div class='container'>
+  {{outlet}}
+</div>
+{{outlet modal}}
+
+<!-- Modal for New Canned Message -->
+<div class="modal fade" id="DraftCannedMessage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close close-canned-message" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Save Draft</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form">
+          <div class="form-group">
+            <label class="control-label" for="messageSubject">Subject</label>
+            {{input type="text" value=defaultSubject class="form-control draft-subject" }}
+          </div>
+          <div class="form-group">
+            <label class="control-label" for="messageBody">Message</label>
+            {{textarea value=defaultMessage class="form-control draft-body" }}
+          </div>
+          <div class="form-group">
+            <label for="cannedMessage">Save to Folder</label>
+            <select class="form-control" id="new-draft-canned-folder">
+              {{#each folder in folders}}
+                <option {{bind-attr value=folder.id}}>{{folder.name}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button {{action 'saveNewDraft' this}} class='btn btn-info'>Save</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

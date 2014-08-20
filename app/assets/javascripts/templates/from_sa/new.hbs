@@ -1,0 +1,16 @@
+<div class="modal-body">
+  <form role="form">
+    <div class="form-group ">
+      <label for="newEmail" class="control-label">Email</label>
+      {{view Ember.TextField type="email" valueBinding='email' class="form-control newEmail"}}
+    </div>
+    <div class="form-group">
+      <label for="newName" class="control-label">Name</label>
+      {{view Ember.TextField type="text" valueBinding='name' class="form-control newName"}}
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default close-new-folder" {{action 'cancel' this }}>Close</button>
+  <button type="submit" class='btn btn-info pull-right' {{action 'create' this }}>Create</button>
+</div>

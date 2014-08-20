@@ -1,0 +1,250 @@
+
+{{#if getSenderOption}}
+  <div class="synced-email pull-right">
+    <label for="defaultGmailAccount pull-left" >Currently Synced:</label>
+    <select class='form-control input-sm pull-right' id='currently-synced'>
+      {{#each gmail in gmail_accounts}}
+        <option {{bind-attr value=gmail.id}}>{{gmail.email}}</option>
+      {{/each}}
+    </select>
+  </div>
+{{else}}
+  <div class="current-synced-email pull-right">
+    <label for="defaultGmailAccount pull-left" >Synced Email:</label>
+    <span class="label label-info">theapptimist@gmail.com</span>
+  </div>
+{{/if}}
+
+
+<!-- Hidden Windows -->
+<div class="one-line-canned-messages" style="display: none;">
+  {{ render 'profile/canned_message/one_line_canned_messages' folders }}
+  {{ partial 'messaging/form'}}
+</div>
+<div class="full-canned-messages" style="display: none;">
+  {{ render 'profile/canned_message/full_canned_messages' folders }}
+  {{ partial 'messaging/form'}}
+</div>
+
+<!-- Default Windows -->
+<div class='profile-details'>
+  <div class='col-sm-4'>
+  <div class="pull-left new-folder" data-toggle="modal" data-target="#newFolder">
+      <span class="marginTop glyphicon glyphicon-plus" style = "position: inherit;
+     "></span>
+    </div>
+    <ul class="nav nav-pills profile-right-tabs">
+      <li><a {{action 'showOneLine' on='click'}}>One Line</a></li>
+      <li><a {{action 'showFullMsg' on='click'}}>Full Messages</a></li>
+    </ul>
+    <div class="profile-details">
+      {{ render 'profile/canned_message/canned_messages_view' folders }}
+    </div>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="newFolder" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">New Folder</h4>
+          </div>
+          <div class="modal-body">
+            <form role="form">
+              <div class="form-group">
+                <label for="newFolder">Name</label>
+                <input type="text" id="new-todo" class="form-control" placedholder="New Folder"></input>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default close-new-folder" data-dismiss="modal">Close</button>
+            <button {{action 'createFolder' }} class='btn btn-info pull-right'>Create Folder</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+  </div>
+  <!-- Message Box -->
+  {{ partial 'messaging/form'}}
+  <div class='col-sm-4'>
+    <ul class="nav nav-pills profile-right-tabs">
+      <li><a {{action 'showMessageTab' on='click'}}>Messages</a></li>
+      <li><a {{action 'showProfileTab' on='click'}}>Profile</a></li>
+      <li><a {{action 'showDefaultsTab' on='click'}}>Defaults</a></li>
+      <li><a {{action 'showLanguageTab' on='click'}}>Language</a></li>
+      <li>{{#link-to 'photos' this.id }}Photo{{/link-to}}</li>
+    </ul>
+    <div class="profile-tabs" id="profile-messages">
+      <p class="text-danger">
+      {{#if admin}}
+        <b>Profile Number - {{ seeking_id }}</b>
+      {{/if}}
+      </p>
+      <hr class='profile-border'>
+      <ul class='list-unstyled pull-left'>
+        {{#if admin}}
+        <li>
+            <a {{bind-attr href="seeking_link"}} target="_blank"><button class="btn btn-info btn-xs">View on SA</button></a>
+        </li>
+        {{/if}}
+        <li>
+          <div class="checkbox">
+            <label class="local-option clearboth">Local</label>
+            <div class="clearboth marginTop_20"></div>
+            <input class="local-checkbox clearboth override-margin-left-negative override-input" type="checkbox" {{bind-attr checked='local_option'}} {{action this 'setLocalOption' on='change'}}>
+          </div> 
+        </li>
+      </ul>
+      <table class="table table-striped table-bordered message-profile-table pull-left">
+        <tr>
+          <td><b>Email</b></td>
+          <td>{{email}}</td>
+        </tr>
+        <tr>
+          <td><b>City/State</b></td>
+          <td>{{city}}</td>
+        </tr>
+        <tr>
+          <td><b>Username</b></td>
+          <td>{{name}}</td>
+        </tr>
+        <tr>
+          <td><b>Country</b></td>
+          <td>{{country}}</td>
+        </td>
+        <tr>
+          <td><b>Age</b></td>
+          <td>{{age}}</td>
+        </tr>
+        <tr>
+          <td><b>Height</b></td>
+          <td>{{height_in_ft}}</td>
+        </tr>
+        <tr>
+          <td><b>Body Type</b></td>
+          <td>{{body_type}}</td>
+        </tr>
+        <tr>
+          <td><b>Language</b></td>
+          <td>{{language}}</td>
+        </tr>
+        <tr>
+          <td><b>Education</b></td>
+          <td>{{college}}</td>
+        </tr>
+      </table>
+      <div class='message-list pull-left'>
+        {{ render 'profile/messages' this.messages }}
+      </div>
+    </div>
+    <div class="profile-tabs" id="profile-full" style='display: none;'>
+      {{ render 'profile/full_profile' this }}
+    </div>
+    <div class="profile-tabs" id="profile-defaults" style='display: none;'>
+    <form role="form">
+      <div class="form-group">
+        <span class="glyphicon glyphicon-plus" style ="color: #000000; font-size: 12px;" ></span>
+        <label for="hexamailStatus">New Message</label>
+          {{input type="text" value='' class="form-control" disabled='true'}}
+        <br>
+          {{textarea value='' class="form-control" disabled='true' }}
+        <hr>
+      </div>  
+        {{#each msg in default_messages}}
+          {{partial 'default_messages/edit'}}
+        {{/each}}
+
+
+        <div class="profile-details">
+          {{ render 'profile/defaults_folder_messages' folders }}
+        </div>
+
+    </form>
+    </div>
+    <div class="profile-tabs" id="profile-language" style='display: none;'>
+      <ul class="nav nav-pills nav-stacked"> 
+        <li class='lang lang-0 active'><a {{action 'setLanguage' 0}}>English</a></li>
+        <li class='lang lang-1'><a {{action 'setLanguage' 1}}>Spanish</a></li>
+        <li class='lang lang-2'><a {{action 'setLanguage' 2}}>German</a></li>
+        <li class='lang lang-3'><a {{action 'setLanguage' 3}}>French</a></li>
+        <li class='lang lang-4'><a {{action 'setLanguage' 4}}>Italian</a></li>
+        <li class='lang lang-5'><a {{action 'setLanguage' 5}}>Portuguese</a></li>
+        <li class='lang lang-6'><a {{action 'setLanguage' 6}}>Polish</a></li>
+        <li class='lang lang-7'><a {{action 'setLanguage' 7}}>Russian</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal for Edit Canned Message -->
+<div class="modal fade" id="editCannedMessage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close close-canned-message" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Edit Canned Message</h4>
+      </div>
+      {{outlet}}
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Modal for New Canned Message -->
+<div class="modal fade" id="newCannedMessage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close close-canned-message" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Edit Canned Message</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form">
+          <div class="form-group">
+            <label for="cannedMessage">Save to Folder</label>
+            <select class="form-control" id="new-canned-folder">
+              {{#each folder in folders}}
+                <option {{bind-attr value=folder.id}}>{{folder.name}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <input type="hidden" id="message_status" value="">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button {{action 'saveNewCannedMessage' this}} class='btn btn-info'>Save</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<!-- Select Email Account -->
+<div class="modal fade" id="selectSenderEmail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Select Email</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form">
+          <div class="form-group">
+            <select class='form-control' id='select-gmail'>
+              {{#each gmail in gmail_accounts}}
+                <option {{bind-attr value=gmail.id}}>{{gmail.email}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" {{action 'sendWithSelectedOption'}}>Send Message</button>
+      </div>
+    </div>
+  </div>
+</div>
+

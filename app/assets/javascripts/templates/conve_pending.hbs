@@ -1,0 +1,94 @@
+<div class="col-xs-12 center-block">
+  <div class="row">
+    <div class="col-xs-3">
+      <h3>Conversation Pending</h3>
+    </div>
+  </div>
+  <div class="row">
+    <table class="table table-striped profiles">
+      <thead>
+        <th>Actions</th>
+        <th>Photo</th>
+        <th>Name</th>
+        <th>Msgs<br>Sent</th>
+        <th>Msgs<br>Rec</th>
+        <th>Mood</th>
+        <th>Location</th>
+        <th>Tag</th>
+        <th>Age</th>
+        <th>D</th>
+        <th>Height</th>
+        <th>Lang</th>
+        <th>Edu</th>
+        <th>Occupation</th>
+        <th>Notes</th>
+      </thead>
+      {{#each itemController="profileRow"}}
+        <tr> 
+          <td class="action-column">
+            <div class="profile-rating pull-left">{{star-rating starRating=rating maxStars=5 action="rateProfile"}}</div>
+            <ul class="list-group action-list pull-left">
+              <li class="list-group-item">
+                {{#link-to 'profile' id tagName='button' class='btn btn-success btn-xs'}}
+                  <span class='glyphicon glyphicon-envelope'></span>
+                {{/link-to}}
+              </li>
+              <li class="list-group-item">
+                {{#link-to 'photos' id tagName='button' class='btn btn-info btn-xs' }}
+                  <span class='glyphicon glyphicon-camera'></span>
+                {{/link-to}}
+              </li>
+              <li class="list-group-item">
+                <button class='btn btn-danger btn-xs' {{action 'delete' this }}>
+                  <span class='glyphicon glyphicon-trash'></span>
+                </button>
+              </li>
+            </ul>
+
+          </td>
+          <td><img {{bind-attr src='profile_photo'}} class='img-thumbnail' style='width: 100px;' /></td>
+          <td class='info-column'>
+            <ul class="list-group name-info">
+              <li class="list-group-item"><strong>{{ name }}</strong></li>
+              <li class="list-group-item">
+                <span class='glyphicon glyphicon-envelope pull-left'></span>
+                <p class="pull-left seeking-info">{{email}}</p>
+              </li>
+              <li class="list-group-item">
+                <span class='glyphicon glyphicon-user pull-left'></span>
+                <p class="pull-left seeking-info">{{skype}}</p>
+              </li>
+              <li class="list-group-item">
+                <span class='glyphicon glyphicon-phone pull-left'></span>
+                <p class="pull-left seeking-info">{{phone}}</p>
+              </li>
+              <li class="list-group-item">
+                <span class="glyphicon glyphicon-eye-close pull-left"></span>
+                <p class="pull-left seeking-info">{{ seeking_id }}</p>
+              </li>
+              <li class="list-group-item">
+                <span class="glyphicon glyphicon-eye-close pull-left"></span>
+                <p class="pull-left seeking-info">{{ ori }}</p>
+              </li>
+            </ul>
+          </td>
+          <td class='message-stat-column'>{{ messages_sent }}</td>
+          <td class='message-stat-column'>{{ messages_received }}</td>
+          <td class='message-stat-column'>{{ mood }}</td>
+          <td class='location-column'>{{ city }}<br>{{ country }}</td>
+          <td>
+            {{#each tag in tags}}
+              <span class="label label-info">{{ tag.name }}</span>
+            {{/each}}
+          </td>
+          <td>{{ age }}</td>
+          <td>{{ days_passed }}</td>
+          <td>{{ height_in_ft }}</td>
+          <td>{{ language }}</td>
+          <td>{{ education }}</td>
+          <td class='occupation-column'>{{  occupation }}</td>
+        </tr>
+      {{/each}}
+    </table>
+  </div>
+</div>

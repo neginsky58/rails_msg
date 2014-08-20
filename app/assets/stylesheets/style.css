@@ -1,0 +1,22 @@
+.marginTop{
+    margin-top: 6px !important;
+}
+
+.breadcrumb > li + li:before {
+    color: #CCCCCC;
+    content: "/ ";
+    padding: 0 2px !important;
+}
+.clearboth {
+    clear: both;
+}
+
+.marginTop_20{
+    margin-top: 20px;
+}
+.override-margin-left-negative{
+    margin-left: 10px !important;
+}
+.override-input{
+    width: auto !important;
+}

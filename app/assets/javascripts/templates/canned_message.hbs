@@ -1,0 +1,12 @@
+<div class="modal-body">
+  <form role="form">
+    <div class="form-group">
+      <label for="cannedMessage">Message</label>
+      {{view Ember.TextArea valueBinding=message class='form-control'}}
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button {{action 'saveCannedMessage' this}} class='btn btn-info'>Save</button>
+  <button {{action 'cancelCannedMessage' }} class='btn btn-default pull-right'>Cancel</button>
+</div>

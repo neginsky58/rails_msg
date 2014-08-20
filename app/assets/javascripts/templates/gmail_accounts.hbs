@@ -1,0 +1,51 @@
+<div class="col-xs-12 center-block">
+  <div class="row">
+    <div class="col-xs-3">
+      <h3>Gmail Accounts</h3>
+    </div>
+  </div>
+
+  <div class="row col-xs-3">
+    <table class="table table-striped table-bordered">
+      <thead>
+        <th>Email</th>
+        <th>Sync</th>
+      </thead>
+      {{#each}}
+        <tr>
+          <td>
+            {{ email }}
+          </td>
+          {{#if authenticated}}
+            <td>
+              <span class="glyphicon glyphicon-ok"></span>
+            </td>
+          {{else}}
+            <td>
+              <span class="glyphicon glyphicon-remove"></span>
+            </td>
+          {{/if}}
+        </tr>
+      {{/each}}
+
+    </table>
+  </div>
+</div>
+
+{{#link-to 'gmail_accounts.new'}}
+  <button class="btn btn-success btn-xs pull-left new-folder">
+    <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Connect Gmail Account
+  </button>
+{{/link-to}}
+
+<!-- Modal -->
+<div class="modal fade" id="newGmailAccount" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard='false' data-backdrop='static'>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">New Gmail Account</h4>
+      </div>
+      {{outlet}}
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
